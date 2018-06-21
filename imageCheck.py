@@ -55,4 +55,4 @@ def not_found(e):
 if __name__ == '__main__':
     #MODEL_NAME=sys.argv[1]
     #boto_client.download_file(BUCKET_NAME, MODEL_NAME, MODEL_PATH)
-    app.run(host='127.0.0.1' ,port=5000)
+    app.run(host='0.0.0.0' ,port=5000)
