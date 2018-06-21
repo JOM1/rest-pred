@@ -35,3 +35,15 @@ def get_file(bucket_name, object_name):
         The file.
     """
     return s3.get_object(Bucket=bucket_name, Key=object_name)['Body']
+
+def download_file(bucket_name, object_name, location):
+    """
+    Downloads a file.
+
+    Args:
+        bucket_name: Name of bucket.
+        object_name: Name of object.
+    Returns:
+        Nothing.
+    """
+    s3.download_file(bucket_name, object_name, location)

@@ -7,17 +7,21 @@ from keras.applications.imagenet_utils import decode_predictions
 from keras.preprocessing import image
 import numpy as np
 import tensorflow as tf
-import os
+import os, sys, io
 from PIL import Image
-import io
+
+
+MODEL_NAME='model.h5'
+MODEL_PATH='model.h5'
+BUCKET_NAME='images'
 
 app = Flask(__name__)
 api = Api(app)
 
-if not os.path.exists('model.h5'):
-    InceptionV3(include_top=True, weights='imagenet').save('model.h5')
+if not os.path.exists(MODEL_NAME):
+    InceptionV3(include_top=True, weights='imagenet').save(MODEL_PATH)
 
-model = load_model('model.h5')
+model = load_model(MODEL_NAME)
 
 # to fix a bug using avital's soulution https://github.com/keras-team/keras/issues/2397
 graph = tf.get_default_graph()
@@ -49,4 +53,6 @@ def not_found(e):
     return '', 404
 
 if __name__ == '__main__':
+    #MODEL_NAME=sys.argv[1]
+    #boto_client.download_file(BUCKET_NAME, MODEL_NAME, MODEL_PATH)
     app.run(host='127.0.0.1' ,port=5000)
