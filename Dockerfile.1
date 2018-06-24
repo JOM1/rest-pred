@@ -1,0 +1,14 @@
+FROM registry.access.redhat.com/rhel
+
+RUN subscription-manager register --username DoctorBD --password doctore22 --auto-attach ;\
+    subscription-manager repos --enable rhel-server-rhscl-7-rpms
+RUN yum install -y wget;\
+    wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm;\
+    rpm -ivh epel-release-latest-7.noarch.rpm;\
+    yum install -y python34 python34-pip;\
+WORKDIR /RESTimage
+COPY . /RESTimage
+RUN pip3 install pipdeps/*
+EXPOSE 5000
+CMD ["python3", "imageCheck.py"] 
+#, "$MODEL_NAME", "$BUCKET_NAME", "$MODEL_PATH"]

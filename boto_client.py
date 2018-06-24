@@ -1,10 +1,11 @@
+import os
 import boto3
 import botocore
 
 # Create an S3 client
 s3 = boto3.client('s3',
     use_ssl=False,
-    endpoint_url='http://172.17.0.2:9000', aws_access_key_id='G4FTBCO37J96UCHCQ6DP',
+    endpoint_url='http://%s:9000' % (os.environ['MINIO_IP']), aws_access_key_id='G4FTBCO37J96UCHCQ6DP',
     aws_secret_access_key='dfkViHQM8LLjt54XBuLzhrQtCne8OX5hEhBKMn34')
 
 def upload_file(file_data, bucket_name, object_name):
